@@ -336,6 +336,26 @@ section { padding: 96px 24px; }
   gap: 14px;
   padding-bottom: 28px;
   position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.7s ease;
+}
+.tl-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.tl-item.highlight {
+  background: rgba(245,156,22,0.08);
+  border-left: 4px solid #f59c16;
+  border-radius: 10px;
+  padding: 10px 0 18px 12px;
+  margin-bottom: 10px;
+}
+.tl-item.highlight::after {
+  display: none;
+}
+.tl-item.highlight .tl-dot {
+  transform: scale(1.2);
 }
 .tl-item.highlight {
   background: rgba(245,156,22,0.08);
@@ -559,6 +579,73 @@ section { padding: 96px 24px; }
 }
 .sns-chip-sub { font-size: 11px; color: var(--ink-3); font-weight: 400; }
 
+
+/* ══════════ COUNTER & TIMER ══════════ */
+.counter-wrap {
+  padding: 42px 24px 28px;
+  background: var(--bg);
+}
+.counter {
+  max-width: 960px;
+  margin: 0 auto;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, #fff, #fffaf2);
+  text-align: center;
+  padding: 24px 20px;
+}
+.counter h2 {
+  font-family: var(--fh);
+  color: var(--o);
+  font-size: clamp(34px, 5vw, 56px);
+  line-height: 1;
+}
+.counter p {
+  margin-top: 10px;
+  color: var(--ink-2);
+  font-size: 14px;
+}
+.timer-box {
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 24px 20px;
+  background: var(--bg);
+  text-align: center;
+}
+.timer-box h2 {
+  font-family: var(--fh);
+  font-size: clamp(28px, 4vw, 40px);
+  margin-bottom: 12px;
+}
+#timer {
+  font-family: var(--fh);
+  color: var(--o-d);
+  font-size: clamp(42px, 6vw, 64px);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.timer-btns {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.timer-btn {
+  border: 1.5px solid var(--line);
+  background: #fff;
+  border-radius: 100px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.timer-btn.primary {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
 /* ══════════ FOOTER ══════════ */
 footer {
   border-top: 1px solid var(--line);
@@ -720,6 +807,22 @@ footer {
     <div class="hero-num">
       <span class="hn-big">5기</span>
       <span class="hn-sm">챌린지</span>
+    </div>
+  </div>
+</section>
+
+<section class="counter-wrap" aria-label="팔로워 카운트와 10분 타이머">
+  <div class="counter reveal">
+    <h2><span id="count">0</span>+</h2>
+    <p>Iki Instagram Followers</p>
+
+    <div class="timer-box">
+      <h2>10분 디자인 루틴</h2>
+      <div id="timer">10:00</div>
+      <div class="timer-btns">
+        <button class="timer-btn primary" id="startTenMin" onclick="startTimer()">오늘 10분 시작하기</button>
+        <button class="timer-btn" onclick="resetTimer()">RESET</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1004,6 +1107,55 @@ const obs = new IntersectionObserver(es => {
   es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* timeline scroll reveal */
+const tlItems = document.querySelectorAll('.tl-item');
+const tlObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('show');
+  });
+}, { threshold: 0.2 });
+tlItems.forEach(item => tlObserver.observe(item));
+
+/* follower counter */
+let count = 0;
+const target = 10000;
+const speed = 10;
+function updateCounter() {
+  if (count < target) {
+    count += 100;
+    document.getElementById('count').innerText = Math.min(count, target).toLocaleString();
+    setTimeout(updateCounter, speed);
+  } else {
+    document.getElementById('count').innerText = target.toLocaleString();
+  }
+}
+updateCounter();
+
+/* 10 min timer */
+let time = 600;
+let timerInterval;
+
+function startTimer() {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    document.getElementById('timer').innerText = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+    time--;
+    if (time < 0) {
+      clearInterval(timerInterval);
+      document.getElementById('timer').innerText = 'DONE!';
+    }
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  time = 600;
+  document.getElementById('timer').innerText = '10:00';
+}
+
 </script>
 </body>
 </html>

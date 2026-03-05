@@ -4,392 +4,359 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>iki.minutes — 하루 10분, 디자인 습관</title>
-
+<link rel="stylesheet" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
+<style>
 <!-- 프리텐다드 -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"/>
 
+<!--
+  꾹꾹체 사용법:
+  1. https://www.memoment.kr/font 에서 다운로드
+  2. 같은 폴더에 'GukGukR.woff2' 파일 저장
+  3. 아래 주석 해제
+-->
 <style>
+/* @font-face {
+  font-family: 'GukGuk';
+  src: url('./GukGukR.woff2') format('woff2');
+  font-weight: normal;
 @font-face {
   font-family: 'MemomentKkukkukk';
   src: url('./MemomentKkukkukk.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
+} */
 }
 
+/* 꾹꾹체 로드 전 fallback - Noto Serif KR이 가장 유사 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Pretendard:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* 캐릭터 이미지의 오렌지 기준 컬러 */
-  --iki:       #F5A623;
-  --iki-d:     #D4880A;
-  --iki-l:     #FFD48A;
-  --iki-pale:  #FFF8EC;
-  --iki-muted: #FFE5A8;
+  --o:     #F5A623;
+  --o-d:   #D4880A;
+  --o-p:   #FFF6E0;
+  --o-b:   #FFE9A8;
+  --ink:   #111111;
+  --ink-2: #555555;
+  --ink-3: #999999;
+  --line:  #EBEBEB;
+  --bg:    #FFFFFF;
+  --bg-2:  #FAFAFA;
 
-  --cream:     #FFFDF8;
-  --warm:      #FEF9F1;
-  --dark:      #1A0E00;
-  --brown:     #2A1800;
-  --brown-m:   #6B4010;
-  --brown-l:   #A87840;
-  --gray:      #C8A870;
+  --fh: 'GukGuk', 'Noto Serif KR', serif;
+  --fb: 'Pretendard', sans-serif;
 
-  /* 폰트 */
-  --f-head: 'MemomentKkukkukk', 'Noto Sans KR', sans-serif;
-  --f-body: 'Pretendard', 'Noto Sans KR', sans-serif;
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 24px;
 }
 
-*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
 body {
-  font-family: var(--f-body);
-  background: var(--cream);
-  color: var(--brown);
+  font-family: var(--fb);
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* ════════ NAV ════════ */
+/* ══════════ NAV ══════════ */
 nav {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  inset: 0 0 auto 0;
   z-index: 200;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 40px;
-  background: rgba(255,253,248,.95);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(245,166,35,.12);
-  gap: 16px;
+  padding: 0 32px;
+  background: rgba(255,255,255,.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
 }
 
-.nav-logo {
+.n-logo {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 8px;
   text-decoration: none;
-  flex-shrink: 0;
 }
-
-/* 캐릭터 이미지 - 검정 배경이므로 원형 클리핑 */
-.nav-char {
-  width: 34px; height: 34px;
+.n-logo img {
+  width: 28px; height: 28px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center 15%;
-  background: var(--dark);
+  object-position: center 10%;
+  mix-blend-mode: multiply;
+  background: var(--o-p);
+}
+.n-logo-svg {
+  width: 28px; height: 28px;
   flex-shrink: 0;
 }
-
-.nav-logo-txt {
-  font-family: var(--f-head);
-  font-size: 19px;
-  color: var(--iki);
-  letter-spacing: -.2px;
-  white-space: nowrap;
+.n-logo-txt {
+  font-family: var(--fh);
+  font-size: 17px;
+  color: var(--ink);
+  letter-spacing: -.3px;
 }
+.n-logo-txt span { color: var(--o); }
 
-.nav-links {
+.n-center {
   display: flex;
-  gap: 28px;
-  list-style: none;
+  gap: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
-
-.nav-links a {
+.n-center a {
   font-size: 13px;
-  font-weight: 400;
-  color: var(--brown-l);
+  font-weight: 500;
+  color: var(--ink-2);
   text-decoration: none;
-  transition: color .2s;
-  white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background .15s, color .15s;
 }
-.nav-links a:hover { color: var(--iki); }
+.n-center a:hover { background: var(--bg-2); color: var(--ink); }
 
-.nav-cta {
+.n-cta {
   font-size: 13px;
   font-weight: 600;
-  color: #fff !important;
-  background: var(--iki);
-  padding: 9px 20px;
-  border-radius: 100px;
+  color: var(--ink) !important;
   text-decoration: none;
+  border: 1.5px solid var(--line);
+  padding: 7px 16px;
+  border-radius: 100px;
+  transition: border-color .15s, background .15s;
   white-space: nowrap;
-  transition: opacity .2s;
-  flex-shrink: 0;
 }
-.nav-cta:hover { opacity: .85; }
+.n-cta:hover { border-color: var(--o); background: var(--o-p); }
 
-/* ════════ HERO ════════ */
+/* ══════════ HERO ══════════ */
 .hero {
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: stretch;
-  padding-top: 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 80px;
+  position: relative;
   overflow: hidden;
 }
 
-/* 왼쪽 - 크림 배경 */
-.hero-l {
-  display: flex;
-  align-items: center;
-  padding: 60px 48px 60px 48px;
-  background: var(--cream);
-  position: relative;
-}
-
-.hero-l::after {
-  content: '';
+/* 배경 그라디언트 오브 */
+.hero-orb1 {
   position: absolute;
-  width: 500px; height: 500px;
+  width: 600px; height: 600px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(245,166,35,.14) 0%, transparent 70%);
-  top: -100px; right: -100px;
+  background: radial-gradient(circle, rgba(245,166,35,.10) 0%, transparent 65%);
+  top: -100px; left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.hero-orb2 {
+  position: absolute;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,.07) 0%, transparent 70%);
+  bottom: 80px; right: 10%;
   pointer-events: none;
 }
 
-.hero-l-inner {
-  max-width: 480px;
-  position: relative;
-  z-index: 1;
-  animation: fadeUp .5s ease both;
-}
-
-.hero-pill {
+.hero-badge {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  background: var(--iki-pale);
-  border: 1.5px solid var(--iki-muted);
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--o-d);
+  background: var(--o-p);
+  border: 1px solid var(--o-b);
   border-radius: 100px;
-  padding: 5px 16px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--iki-d);
-  margin-bottom: 20px;
+  padding: 5px 14px;
+  margin-bottom: 28px;
+  letter-spacing: .2px;
+  animation: up .5s ease both;
 }
-.hero-pill::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--iki);
+
+/* 캐릭터 */
+.hero-char-wrap {
+  width: 96px; height: 96px;
+  margin: 0 auto 24px;
+  animation: up .5s .05s ease both;
+}
+.hero-char-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 12%;
+  mix-blend-mode: multiply;
 }
 
 .hero-h1 {
-  font-family: var(--f-head);
-  font-size: clamp(30px, 3.8vw, 52px);
-  line-height: 1.3;
-  color: var(--brown);
-  margin-bottom: 18px;
+  font-family: var(--fh);
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -1.5px;
+  color: var(--ink);
+  max-width: 720px;
+  margin: 0 auto 20px;
   word-break: keep-all;
+  animation: up .5s .1s ease both;
 }
-.hero-h1 b { color: var(--iki); font-weight: inherit; }
+.hero-h1 em { color: var(--o); font-style: normal; }
 
 .hero-sub {
-  font-size: 15px;
-  line-height: 1.9;
-  color: var(--brown-l);
-  margin-bottom: 32px;
-  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink-2);
+  font-weight: 400;
+  max-width: 460px;
+  margin: 0 auto 36px;
   word-break: keep-all;
+  animation: up .5s .15s ease both;
 }
-.hero-sub strong { color: var(--brown); font-weight: 500; }
 
 .hero-btns {
   display: flex;
   gap: 10px;
+  justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 40px;
+  margin-bottom: 64px;
+  animation: up .5s .2s ease both;
 }
 
-.btn-fill {
-  background: var(--iki);
+.btn-dark {
+  background: var(--ink);
   color: #fff;
-  padding: 12px 26px;
-  border-radius: 100px;
   font-size: 14px;
   font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 6px 20px rgba(245,166,35,.3);
-  transition: transform .2s, box-shadow .2s;
-  display: inline-block;
-}
-.btn-fill:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(245,166,35,.38); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--brown);
-  padding: 12px 26px;
+  padding: 12px 24px;
   border-radius: 100px;
+  text-decoration: none;
+  transition: opacity .15s;
+}
+.btn-dark:hover { opacity: .82; }
+
+.btn-line {
+  background: transparent;
+  color: var(--ink);
   font-size: 14px;
   font-weight: 500;
+  padding: 11px 24px;
+  border-radius: 100px;
   text-decoration: none;
-  border: 1.5px solid rgba(42,24,0,.18);
-  transition: border-color .2s, color .2s;
-  display: inline-block;
+  border: 1.5px solid var(--line);
+  transition: border-color .15s, background .15s;
 }
-.btn-ghost:hover { border-color: var(--iki); color: var(--iki); }
+.btn-line:hover { border-color: var(--o); background: var(--o-p); }
 
-.hero-stats {
+/* 히어로 숫자 */
+.hero-nums {
   display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  animation: up .5s .25s ease both;
 }
-
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.hero-num {
+  padding: 18px 36px;
+  text-align: center;
+  border-right: 1px solid var(--line);
 }
-.stat-n {
-  font-family: var(--f-head);
-  font-size: 28px;
-  color: var(--iki);
+.hero-num:last-child { border-right: none; }
+.hn-big {
+  font-family: var(--fh);
+  font-size: 26px;
+  color: var(--o);
   line-height: 1;
+  display: block;
+  margin-bottom: 4px;
 }
-.stat-l {
+.hn-sm {
   font-size: 11px;
-  color: var(--gray);
+  color: var(--ink-3);
   letter-spacing: .5px;
 }
 
-/* 오른쪽 - 따뜻한 오렌지 그라디언트 */
-.hero-r {
-  background: linear-gradient(145deg, #FFF4DA 0%, #FFE49E 50%, #FFC84A 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 40px;
-  position: relative;
-  gap: 28px;
-  overflow: hidden;
-}
+/* ══════════ SECTION BASE ══════════ */
+section { padding: 96px 24px; }
+.wrap { max-width: 960px; margin: 0 auto; }
+.wrap-sm { max-width: 720px; margin: 0 auto; }
 
-.hero-r::before {
-  content: '';
-  position: absolute;
-  width: 420px; height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,.4) 0%, transparent 68%);
-  top: -80px; right: -80px;
-  pointer-events: none;
-}
-
-.hero-r::after {
-  content: '';
-  position: absolute;
-  width: 260px; height: 260px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,200,74,.3) 0%, transparent 70%);
-  bottom: -60px; left: -40px;
-  pointer-events: none;
-}
-
-.char-img {
-  width: min(260px, 70%);
-  border-radius: 0;
-  position: relative;
-  z-index: 1;
-  /* 검정 배경 PNG를 투명하게: 흰 배경에서 검정 부분이 사라짐 */
-  mix-blend-mode: multiply;
-  /* 이미지 로드 실패해도 공간 유지 */
-  min-height: 200px;
-  object-fit: contain;
-}
-
-/* 히어로 우측 포스터 미니 그리드 */
-.hero-mini-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 7px;
-  width: 100%;
-  max-width: 320px;
-  position: relative;
-  z-index: 1;
-}
-
-.hm-cell {
-  aspect-ratio: 1;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-/* ════════ SECTION BASE ════════ */
-section { padding: 80px 40px; }
-.wrap { max-width: 1080px; margin: 0 auto; }
-
-.eyebrow {
+.s-label {
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  color: var(--iki);
+  font-weight: 700;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin-bottom: 8px;
-}
-
-.s-title {
-  font-family: var(--f-head);
-  font-size: clamp(24px, 3vw, 36px);
-  color: var(--brown);
-  line-height: 1.35;
+  color: var(--o);
   margin-bottom: 12px;
+}
+.s-h2 {
+  font-family: var(--fh);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  color: var(--ink);
+  margin-bottom: 14px;
   word-break: keep-all;
 }
-.s-title b { color: var(--iki); font-weight: inherit; }
-
-.s-desc {
-  font-size: 14.5px;
-  color: var(--brown-l);
-  line-height: 1.85;
-  max-width: 500px;
-  font-weight: 300;
+.s-h2 em { color: var(--o); font-style: normal; }
+.s-p {
+  font-size: 15px;
+  color: var(--ink-2);
+  line-height: 1.75;
+  font-weight: 400;
+  max-width: 480px;
   word-break: keep-all;
 }
 
-/* ════════ ABOUT ════════ */
-.about { background: var(--warm); }
+/* ══════════ ABOUT ══════════ */
+.about { background: var(--bg-2); }
 
-.about-grid {
+.about-inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  margin-top: 48px;
+  gap: 80px;
   align-items: start;
+  margin-top: 56px;
 }
 
-.about-story p {
-  font-size: 14.5px;
-  line-height: 1.95;
-  color: var(--brown-l);
+.about-copy p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: var(--ink-2);
   margin-bottom: 14px;
-  font-weight: 300;
   word-break: keep-all;
 }
-.about-story p strong { color: var(--brown); font-weight: 500; }
+.about-copy p strong { color: var(--ink); font-weight: 600; }
 
-.journey { display: flex; flex-direction: column; }
-
-.j-item {
+/* 타임라인 */
+.tl { display: flex; flex-direction: column; gap: 0; }
+.tl-item {
   display: flex;
   gap: 14px;
+  padding-bottom: 28px;
   position: relative;
-  padding-bottom: 24px;
 }
-.j-item:last-child { padding-bottom: 0; }
-.j-item:not(:last-child)::after {
+.tl-item:last-child { padding-bottom: 0; }
+.tl-item:not(:last-child)::after {
   content: '';
   position: absolute;
-  left: 15px; top: 32px; bottom: 0;
-  width: 2px;
-  background: var(--iki-muted);
+  left: 14px; top: 30px; bottom: 0;
+  width: 1px;
+  background: var(--line);
 }
-
-.j-dot {
-  width: 32px; height: 32px;
-  background: var(--iki-pale);
-  border: 2px solid var(--iki-muted);
+.tl-dot {
+  width: 30px; height: 30px;
   border-radius: 50%;
+  background: var(--o-p);
+  border: 1.5px solid var(--o-b);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -398,481 +365,399 @@ section { padding: 80px 40px; }
   position: relative;
   z-index: 1;
 }
-
-.j-text strong {
+.tl-txt strong {
   display: block;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--brown);
-  margin-bottom: 3px;
+  color: var(--ink);
   padding-top: 4px;
+  margin-bottom: 3px;
 }
-.j-text span {
+.tl-txt span {
   font-size: 12.5px;
-  color: var(--brown-l);
-  line-height: 1.65;
-  font-weight: 300;
+  color: var(--ink-3);
+  line-height: 1.6;
 }
 
-/* ════════ GALLERY ════════ */
-.gallery { background: var(--cream); }
+/* ══════════ GALLERY ══════════ */
+.gallery { background: var(--bg); }
 
-.g-head {
+.g-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 28px;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 14px;
 }
-
 .filters {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
 .flt {
-  padding: 6px 14px;
-  border-radius: 100px;
+  font-family: var(--fb);
   font-size: 12px;
   font-weight: 500;
-  border: 1.5px solid rgba(42,24,0,.13);
+  color: var(--ink-2);
   background: transparent;
-  color: var(--brown-l);
+  border: 1.5px solid var(--line);
+  border-radius: 100px;
+  padding: 5px 14px;
   cursor: pointer;
-  transition: all .2s;
-  font-family: var(--f-body);
+  transition: all .15s;
 }
 .flt.on, .flt:hover {
-  background: var(--iki);
+  background: var(--ink);
   color: #fff;
-  border-color: var(--iki);
+  border-color: var(--ink);
 }
 
-/* 이미지 교체 안내 */
-.ig-notice {
-  background: var(--iki-pale);
-  border: 1.5px dashed var(--iki-muted);
-  border-radius: 12px;
-  padding: 14px 20px;
-  margin-bottom: 24px;
-  font-size: 13px;
-  color: var(--brown-l);
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-.ig-notice b { color: var(--iki-d); font-weight: 600; }
-
-.masonry {
-  columns: 5;
-  column-gap: 8px;
-}
-
+.masonry { columns: 5; column-gap: 8px; }
 .m-item {
   break-inside: avoid;
   margin-bottom: 8px;
-  border-radius: 10px;
+  border-radius: var(--r-sm);
   overflow: hidden;
   cursor: pointer;
-  transition: transform .3s, box-shadow .3s;
+  transition: transform .25s, box-shadow .25s;
 }
 .m-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(42,24,0,.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,.08);
 }
-
 .m-card {
   width: 100%;
   display: flex;
   align-items: flex-end;
-  padding: 9px;
+  padding: 8px;
 }
 .m-tag {
   font-size: 9px;
-  color: rgba(255,255,255,.82);
-  letter-spacing: .4px;
-  font-weight: 500;
-  background: rgba(0,0,0,.18);
+  font-weight: 600;
+  color: rgba(255,255,255,.85);
+  background: rgba(0,0,0,.16);
   padding: 2px 8px;
   border-radius: 100px;
+  letter-spacing: .3px;
 }
-
 .g-foot { text-align: center; margin-top: 32px; }
 
-/* ════════ LINKS (커뮤니티+스토어) ════════ */
-.links-sec { background: var(--warm); }
+/* 인스타 안내 */
+.ig-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--o-p);
+  border: 1px solid var(--o-b);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--ink-2);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.ig-note b { color: var(--o-d); font-weight: 600; }
+.ig-note a { color: var(--o-d); font-weight: 600; }
+
+/* ══════════ LINKS ══════════ */
+.links { background: var(--bg-2); }
 
 .links-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-top: 44px;
+  gap: 12px;
+  margin-top: 48px;
 }
 
-.lk-card {
-  background: #fff;
-  border-radius: 18px;
-  padding: 24px 20px 20px;
+.lk {
+  background: var(--bg);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 22px 20px 18px;
   text-decoration: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  border: 1.5px solid rgba(245,166,35,.1);
-  transition: all .25s;
-  box-shadow: 0 2px 12px rgba(245,166,35,.06);
+  gap: 8px;
+  transition: border-color .15s, transform .2s, box-shadow .2s;
 }
-.lk-card:hover {
-  border-color: var(--iki);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(245,166,35,.14);
+.lk:hover {
+  border-color: var(--o);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245,166,35,.1);
 }
 
 .lk-badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 10.5px;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: .3px;
+  padding: 3px 9px;
+  border-radius: 100px;
   width: fit-content;
 }
-.lk-badge.kakao  { background: #FEE500; color: #3A1D00; }
-.lk-badge.discord{ background: #5865F2; color: #fff; }
-.lk-badge.store  { background: var(--iki-pale); color: var(--iki-d); }
+.lk-badge.kakao  { background: #FEE500; color: #3a1d00; }
+.lk-badge.disc   { background: #5865F2; color: #fff; }
+.lk-badge.store  { background: var(--o-p); color: var(--o-d); border: 1px solid var(--o-b); }
+.lk-badge.free   { background: #E8F5E9; color: #2E7D32; }
 
 .lk-name {
-  font-family: var(--f-head);
-  font-size: 17px;
-  color: var(--brown);
+  font-family: var(--fh);
+  font-size: 16.5px;
+  color: var(--ink);
   line-height: 1.3;
   word-break: keep-all;
 }
 .lk-desc {
-  font-size: 12.5px;
-  color: var(--brown-l);
-  line-height: 1.65;
-  font-weight: 300;
-  word-break: keep-all;
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.6;
   flex: 1;
+  word-break: keep-all;
 }
-.lk-arrow {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--iki);
-  margin-top: auto;
+.lk-arr {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--o);
+  margin-top: 4px;
 }
 
-/* ════════ SNS ════════ */
-.sns-sec { background: var(--cream); }
+/* ══════════ SNS ══════════ */
+.sns { background: var(--bg); }
 
 .sns-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
   margin-top: 36px;
 }
-
 .sns-chip {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: #fff;
-  border: 1.5px solid rgba(42,24,0,.1);
+  gap: 7px;
+  border: 1.5px solid var(--line);
   border-radius: 100px;
-  padding: 10px 18px;
-  text-decoration: none;
+  padding: 9px 16px;
   font-size: 13px;
   font-weight: 500;
-  color: var(--brown);
-  transition: all .2s;
-  white-space: nowrap;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: border-color .15s, color .15s, background .15s;
 }
 .sns-chip:hover {
-  border-color: var(--iki);
-  color: var(--iki);
-  background: var(--iki-pale);
+  border-color: var(--o);
+  color: var(--ink);
+  background: var(--o-p);
 }
-.sns-chip-icon { font-size: 17px; }
-.sns-chip-sub {
-  font-size: 11px;
-  color: var(--gray);
-  font-weight: 400;
-}
+.sns-chip-sub { font-size: 11px; color: var(--ink-3); font-weight: 400; }
 
-/* ════════ FOOTER ════════ */
+/* ══════════ FOOTER ══════════ */
 footer {
-  background: var(--dark);
-  padding: 52px 40px;
-  text-align: center;
+  border-top: 1px solid var(--line);
+  padding: 40px 24px;
 }
-
+.foot-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
 .foot-logo {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 8px;
+  text-decoration: none;
 }
-.foot-char {
-  width: 38px; height: 38px;
+.foot-logo img {
+  width: 26px; height: 26px;
   border-radius: 50%;
   object-fit: cover;
-  object-position: center 15%;
+  object-position: center 10%;
+  mix-blend-mode: multiply;
 }
 .foot-logo-txt {
-  font-family: var(--f-head);
-  font-size: 26px;
-  color: var(--iki);
+  font-family: var(--fh);
+  font-size: 15px;
+  color: var(--ink);
 }
-.foot-tag {
-  font-size: 13px;
-  color: rgba(255,255,255,.32);
-  margin-bottom: 26px;
-  font-weight: 300;
-  word-break: keep-all;
-}
-.foot-sns {
+.foot-logo-txt span { color: var(--o); }
+
+.foot-links {
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 28px;
+  gap: 20px;
   flex-wrap: wrap;
 }
-.foot-sns a {
-  width: 38px; height: 38px;
-  background: rgba(255,255,255,.07);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
+.foot-links a {
+  font-size: 13px;
+  color: var(--ink-3);
   text-decoration: none;
-  transition: background .2s;
+  transition: color .15s;
 }
-.foot-sns a:hover { background: rgba(245,166,35,.28); }
-.foot-copy { font-size: 12px; color: rgba(255,255,255,.18); }
+.foot-links a:hover { color: var(--ink); }
 
-/* ════════ ANIMATIONS ════════ */
-@keyframes fadeUp {
-  from { opacity:0; transform:translateY(20px); }
-  to   { opacity:1; transform:translateY(0); }
+.foot-copy {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+/* ══════════ ANIMATIONS ══════════ */
+@keyframes up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 .reveal {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity .6s ease, transform .6s ease;
+  transform: translateY(16px);
+  transition: opacity .55s ease, transform .55s ease;
 }
-.reveal.on { opacity:1; transform:translateY(0); }
+.reveal.on { opacity: 1; transform: translateY(0); }
 
-/* ════════ RESPONSIVE ════════ */
-
-/* 태블릿 */
-@media (max-width: 1024px) {
-  nav { padding: 14px 24px; }
-  .nav-links { gap: 20px; }
-  section { padding: 72px 28px; }
-  .hero-l { padding: 50px 28px; }
-  .hero-r  { padding: 50px 28px; }
-  .about-grid { gap: 40px; }
-  .links-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-/* 모바일 */
+/* ══════════ MOBILE ══════════ */
 @media (max-width: 768px) {
-  /* NAV */
-  nav { padding: 13px 18px; }
-  .nav-links { display: none; }
-  .nav-logo-txt { font-size: 17px; }
-  .nav-cta { padding: 7px 16px; font-size: 12px; }
+  nav { padding: 0 18px; }
+  .n-center { display: none; }
+  .n-logo-txt { font-size: 15px; }
+  .n-cta { font-size: 12px; padding: 6px 14px; }
 
-  /* HERO - 세로 스택 */
-  .hero {
-    grid-template-columns: 1fr;
-    min-height: auto;
-    padding-top: 62px;
-  }
-  .hero-l {
-    padding: 48px 20px 36px;
-    order: 2;
-  }
-  .hero-l::after { display: none; }
-  .hero-r {
-    padding: 44px 20px 32px;
-    order: 1;
-    min-height: 280px;
-    flex-direction: row;
-    justify-content: center;
-    gap: 20px;
-    align-items: center;
-  }
-  .hero-r::before { display: none; }
-  .hero-r::after  { display: none; }
-  .char-img { width: 130px; border-radius: 16px; }
-  .hero-mini-grid {
-    grid-template-columns: repeat(2, 1fr);
-    max-width: 130px;
-    gap: 6px;
-  }
-  .hero-h1  { font-size: clamp(28px, 7vw, 38px); }
-  .hero-sub { font-size: 14px; }
-  .hero-stats { gap: 18px; }
-  .stat-n { font-size: 24px; }
+  section { padding: 64px 18px; }
+  .hero { padding: 96px 18px 64px; }
+  .hero-h1 { letter-spacing: -.8px; }
+  .hero-nums { flex-wrap: wrap; border-radius: var(--r-md); }
+  .hero-num { padding: 14px 20px; flex: 1 1 40%; }
 
-  /* SECTIONS */
-  section { padding: 60px 20px; }
-  .s-title { font-size: clamp(22px, 6vw, 30px); }
-
-  /* ABOUT */
-  .about-grid { grid-template-columns: 1fr; gap: 36px; margin-top: 36px; }
-
-  /* GALLERY */
-  .masonry { columns: 2; column-gap: 7px; }
-  .g-head { flex-direction: column; align-items: flex-start; }
-
-  /* LINKS */
-  .links-grid { grid-template-columns: 1fr; gap: 12px; }
-
-  /* SNS */
-  .sns-row { gap: 8px; }
-  .sns-chip { padding: 9px 14px; font-size: 12.5px; }
+  .about-inner { grid-template-columns: 1fr; gap: 40px; margin-top: 36px; }
+  .masonry { columns: 2; }
+  .g-top { flex-direction: column; align-items: flex-start; }
+  .links-grid { grid-template-columns: 1fr; }
+  .sns-row { gap: 6px; }
   .sns-chip-sub { display: none; }
 
-  /* FOOTER */
-  footer { padding: 44px 20px; }
+  .foot-inner { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
 
-/* 아주 작은 화면 */
-@media (max-width: 380px) {
-  .hero-btns { flex-direction: column; }
-  .btn-fill, .btn-ghost { text-align: center; }
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 32px; }
+  .hero-btns { flex-direction: column; align-items: center; }
+  .btn-dark, .btn-line { width: 100%; text-align: center; }
+  .masonry { columns: 2; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ══ NAV ══ -->
 <nav>
-  <a href="#top" class="nav-logo">
-    <!--
-      캐릭터 이미지 경로 교체:
-      같은 폴더에 이미지 파일 저장 후 src="./RFQ6KDU.png" 로 변경
-    -->
-    <img class="nav-char" src="./RFQ6KDU.png" alt="이키 캐릭터" onerror="this.style.display='none'">
-    <span class="nav-logo-txt">iki.minutes</span>
+  <a href="#top" class="n-logo">
+    <img src="./RFQ6KDU.png" alt="이키"
+      onerror="this.outerHTML='<svg class=\'n-logo-svg\' viewBox=\'0 0 200 240\'><ellipse cx=\'100\' cy=\'142\' rx=\'74\' ry=\'96\' fill=\'#FFF6E0\' stroke=\'#F5A623\' stroke-width=\'9\'/><line x1=\'74\' y1=\'50\' x2=\'58\' y2=\'26\' stroke=\'#F5A623\' stroke-width=\'9\' stroke-linecap=\'round\'/><line x1=\'126\' y1=\'50\' x2=\'142\' y2=\'26\' stroke=\'#F5A623\' stroke-width=\'9\' stroke-linecap=\'round\'/><circle cx=\'82\' cy=\'122\' r=\'7\' fill=\'#F5A623\'/><circle cx=\'118\' cy=\'122\' r=\'7\' fill=\'#F5A623\'/><path d=\'M86 140 Q100 153 114 140\' fill=\'none\' stroke=\'#F5A623\' stroke-width=\'7\' stroke-linecap=\'round\'/><text x=\'88\' y=\'195\' font-family=\'Arial Black\' font-weight=\'900\' font-size=\'34\' fill=\'#F5A623\'>k</text></svg>'">
+    <span class="n-logo-txt">iki<span>.</span>minutes</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="#about">소개</a></li>
-    <li><a href="#gallery">포스터</a></li>
-    <li><a href="#links">커뮤니티·스토어</a></li>
-    <li><a href="#sns">채널</a></li>
-  </ul>
-  <a href="https://www.instagram.com/iki.minutes/" target="_blank" class="nav-cta">📸 @iki.minutes</a>
+
+  <nav class="n-center">
+    <a href="#about">소개</a>
+    <a href="#gallery">포스터</a>
+    <a href="#links">커뮤니티</a>
+    <a href="#sns">채널</a>
+  </nav>
+
+  <a href="https://www.instagram.com/iki.minutes" target="_blank" class="n-cta">
+    📸 @iki.minutes
+  </a>
 </nav>
 
 <!-- ══ HERO ══ -->
-<div class="hero" id="top">
+<section class="hero" id="top">
+  <div class="hero-orb1"></div>
+  <div class="hero-orb2"></div>
 
-  <!-- 왼쪽 텍스트 -->
-  <div class="hero-l">
-    <div class="hero-l-inner">
-      <div class="hero-pill">🍊 하루 10분 디자인 루틴</div>
-      <h1 class="hero-h1">
-        막막한 그 10분,<br>
-        <b>지금 시작해봐요.</b>
-      </h1>
-      <p class="hero-sub">
-        비전공자였던 이키가 매일 10분씩 쌓아온 기록이에요.<br>
-        <strong>잘 만들어야 한다는 부담 없이, 딱 10분만.</strong><br>
-        그 10분이 200개의 포스터가 됐어요 🧡
-      </p>
-      <div class="hero-btns">
-        <a href="#gallery" class="btn-fill">포스터 구경하기 →</a>
-        <a href="#links" class="btn-ghost">챌린지 참여하기</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <span class="stat-n">200+</span>
-          <span class="stat-l">포스터</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n">1.1만</span>
-          <span class="stat-l">팔로워</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n">29+</span>
-          <span class="stat-l">후기</span>
-        </div>
-        <div class="stat">
-          <span class="stat-n">5기</span>
-          <span class="stat-l">챌린지</span>
-        </div>
-      </div>
+  <div class="hero-badge">🍊 하루 10분 디자인 루틴</div>
+
+  <div class="hero-char-wrap">
+    <img src="./RFQ6KDU.png" alt="이키 캐릭터"
+      onerror="this.outerHTML='<svg width=\'96\' height=\'96\' viewBox=\'0 0 200 240\'><ellipse cx=\'100\' cy=\'142\' rx=\'74\' ry=\'96\' fill=\'#FFF6E0\' stroke=\'#F5A623\' stroke-width=\'9\'/><line x1=\'74\' y1=\'50\' x2=\'58\' y2=\'26\' stroke=\'#F5A623\' stroke-width=\'9\' stroke-linecap=\'round\'/><line x1=\'126\' y1=\'50\' x2=\'142\' y2=\'26\' stroke=\'#F5A623\' stroke-width=\'9\' stroke-linecap=\'round\'/><circle cx=\'82\' cy=\'122\' r=\'7\' fill=\'#F5A623\'/><circle cx=\'118\' cy=\'122\' r=\'7\' fill=\'#F5A623\'/><path d=\'M86 140 Q100 153 114 140\' fill=\'none\' stroke=\'#F5A623\' stroke-width=\'7\' stroke-linecap=\'round\'/><text x=\'88\' y=\'195\' font-family=\'Arial Black\' font-weight=\'900\' font-size=\'34\' fill=\'#F5A623\'>k</text></svg>'">
+  </div>
+
+  <h1 class="hero-h1">막막한 그 10분,<br><em>지금 시작해봐요.</em></h1>
+  <p class="hero-sub">비전공자였던 이키가 매일 10분씩 쌓아온 기록이에요.<br>잘 만들어야 한다는 부담 없이, 딱 10분만.</p>
+
+  <div class="hero-btns">
+    <a href="#gallery" class="btn-dark">포스터 구경하기 →</a>
+    <a href="#links" class="btn-line">챌린지 참여하기</a>
+  </div>
+
+  <div class="hero-nums">
+    <div class="hero-num">
+      <span class="hn-big">200+</span>
+      <span class="hn-sm">포스터</span>
+    </div>
+    <div class="hero-num">
+      <span class="hn-big">1.1만</span>
+      <span class="hn-sm">팔로워</span>
+    </div>
+    <div class="hero-num">
+      <span class="hn-big">29+</span>
+      <span class="hn-sm">후기</span>
+    </div>
+    <div class="hero-num">
+      <span class="hn-big">5기</span>
+      <span class="hn-sm">챌린지</span>
     </div>
   </div>
-
-  <!-- 오른쪽 캐릭터 + 미니 포스터 -->
-  <div class="hero-r">
-    <img class="char-img"
-         src="./RFQ6KDU.png"
-         alt="이키 캐릭터"
-         onerror="this.outerHTML='<svg width=\'220\' height=\'260\' viewBox=\'0 0 200 240\' style=\'position:relative;z-index:1\'><ellipse cx=\'100\' cy=\'142\' rx=\'74\' ry=\'96\' fill=\'white\' stroke=\'#F5A623\' stroke-width=\'9\'/><line x1=\'74\' y1=\'50\' x2=\'58\' y2=\'26\' stroke=\'#F5A623\' stroke-width=\'9\' stroke-linecap=\'round\'/><line x1=\'126\' y1=\'50\' x2=\'142\' y2=\'26\' stroke=\'#F5A623\' stroke-width=\'9\' stroke-linecap=\'round\'/><circle cx=\'82\' cy=\'122\' r=\'7\' fill=\'#F5A623\'/><circle cx=\'118\' cy=\'122\' r=\'7\' fill=\'#F5A623\'/><path d=\'M86 140 Q100 153 114 140\' fill=\'none\' stroke=\'#F5A623\' stroke-width=\'7\' stroke-linecap=\'round\'/><text x=\'88\' y=\'195\' font-family=\'Arial Black\' font-weight=\'900\' font-size=\'34\' fill=\'#F5A623\'>k</text></svg>'">
-    <div class="hero-mini-grid" id="heroGrid"></div>
-  </div>
-
-</div>
+</section>
 
 <!-- ══ ABOUT ══ -->
 <section class="about" id="about">
   <div class="wrap">
-    <p class="eyebrow">about iki</p>
-    <h2 class="s-title">비전공자가 <b>매일 10분</b>씩 쌓으면</h2>
-    <p class="s-desc">이키의 이야기예요. 처음엔 막막했고, 지금도 완벽하진 않아요. 근데 계속하고 있어요.</p>
-    <div class="about-grid reveal">
-      <div class="about-story">
+    <p class="s-label">about iki</p>
+    <h2 class="s-h2">비전공자가 <em>매일 10분</em>씩 쌓으면</h2>
+    <p class="s-p">이키의 이야기예요. 처음엔 막막했고, 지금도 완벽하진 않아요. 근데 계속하고 있어요.</p>
+
+    <div class="about-inner reveal">
+      <div class="about-copy">
         <p>안녕하세요, <strong>이키(@iki.minutes)</strong>입니다 🧡</p>
-        <p>영상 만드는 사람인데, 어느 날 포스터가 만들고 싶어졌어요.<br>
-        툴도 모르고, 어디서부터 시작해야 할지도 몰랐어요.</p>
-        <p>그래서 <strong>딱 10분만 하자</strong>고 시작했어요.<br>
-        레퍼런스 찾고, 따라 만들고, 저장하고.<br>
-        그 10분이 매일 쌓이다 보니 어느새 200개가 됐어요.</p>
-        <p>지금은 같이 10분 하는 사람들이 생겼고,<br>
-        그 사람들이랑 매일 조금씩 성장하고 있어요.<br>
-        <strong>잘하는 사람 말고, 꾸준한 사람이 이기더라고요.</strong></p>
+        <p>영상 만드는 사람인데, 어느 날 포스터가 만들고 싶어졌어요.<br>툴도 모르고, 어디서부터 시작해야 할지도 몰랐어요.</p>
+        <p>그래서 <strong>딱 10분만 하자</strong>고 시작했어요.<br>레퍼런스 찾고, 따라 만들고, 저장하고.<br>그 10분이 매일 쌓이다 보니 어느새 200개가 됐어요.</p>
+        <p>지금은 같이 10분 하는 사람들이 생겼고,<br>그 사람들이랑 매일 조금씩 성장하고 있어요.<br><strong>잘하는 사람 말고, 꾸준한 사람이 이기더라고요.</strong></p>
       </div>
-      <div class="journey">
-        <div class="j-item">
-          <div class="j-dot">📖</div>
-          <div class="j-text">
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-dot">📖</div>
+          <div class="tl-txt">
             <strong>2024.10 — iki.minutes 시작</strong>
             <span>비전공자로 포스터 시작.<br>하루 10분 디자인 루틴 공개.</span>
           </div>
         </div>
-        <div class="j-item">
-          <div class="j-dot">🎨</div>
-          <div class="j-text">
+        <div class="tl-item">
+          <div class="tl-dot">🎨</div>
+          <div class="tl-txt">
             <strong>포스터 200개 제작</strong>
-            <span>매일 10분씩 꾸준히 쌓아온<br>200개의 포스터 아카이브.</span>
+            <span>매일 10분씩 꾸준히 쌓아온 200개.</span>
           </div>
         </div>
-        <div class="j-item">
-          <div class="j-dot">📘</div>
-          <div class="j-text">
-            <strong>전자책 2종 출간 · 후기 20개+</strong>
-            <span>10분 디자인 루틴 + 30일 노션 루틴북 포함.<br>하루 10분 디자인 습관 만들기.</span>
+        <div class="tl-item">
+          <div class="tl-dot">📘</div>
+          <div class="tl-txt">
+            <strong>전자책 출간 · 후기 20개+</strong>
+            <span>전자책 + 30일 노션 루틴북 포함.</span>
           </div>
         </div>
-        <div class="j-item">
-          <div class="j-dot">🧡</div>
-          <div class="j-text">
-            <strong>감각 챌린지 5기 운영 · 후기 9개+</strong>
-            <span>2주간 매일 포스터 만들기.<br>같은 주제, 각자의 결과물.</span>
+        <div class="tl-item">
+          <div class="tl-dot">🧡</div>
+          <div class="tl-txt">
+            <strong>감각 챌린지 5기 · 후기 9개+</strong>
+            <span>2주간 매일 포스터 만들기.</span>
           </div>
         </div>
-        <div class="j-item">
-          <div class="j-dot">🏠</div>
-          <div class="j-text">
+        <div class="tl-item">
+          <div class="tl-dot">🏠</div>
+          <div class="tl-txt">
             <strong>커뮤니티 운영 중</strong>
-            <span>일기록록방 + 이키의 작업실(디스코드).<br>같이 10분 해요.</span>
+            <span>일기록록방 + 이키의 작업실(디스코드)</span>
           </div>
         </div>
       </div>
@@ -883,37 +768,31 @@ footer {
 <!-- ══ GALLERY ══ -->
 <section class="gallery" id="gallery">
   <div class="wrap">
-    <div class="g-head reveal">
+    <div class="g-top reveal">
       <div>
-        <p class="eyebrow">poster archive</p>
-        <h2 class="s-title">200개의 <b>10분들</b></h2>
+        <p class="s-label">poster archive</p>
+        <h2 class="s-h2">200개의 <em>10분들</em></h2>
       </div>
       <div class="filters">
-        <button class="flt on" onclick="filterPosters(this,'all')">전체</button>
-        <button class="flt" onclick="filterPosters(this,'일러스트')">일러스트</button>
-        <button class="flt" onclick="filterPosters(this,'포토샵')">포토샵</button>
-        <button class="flt" onclick="filterPosters(this,'타이포')">타이포</button>
-        <button class="flt" onclick="filterPosters(this,'푸드')">푸드</button>
-        <button class="flt" onclick="filterPosters(this,'감성')">감성</button>
+        <button class="flt on" onclick="filterPoster(this,'all')">전체</button>
+        <button class="flt" onclick="filterPoster(this,'일러스트')">일러스트</button>
+        <button class="flt" onclick="filterPoster(this,'포토샵')">포토샵</button>
+        <button class="flt" onclick="filterPoster(this,'타이포')">타이포</button>
+        <button class="flt" onclick="filterPoster(this,'푸드')">푸드</button>
+        <button class="flt" onclick="filterPoster(this,'감성')">감성</button>
       </div>
     </div>
 
-    <div class="ig-notice reveal">
-      📸&nbsp;
-      <span>
-        <b>구글 드라이브로 포스터 넣는 법:</b><br>
-        ① 드라이브에 이미지 업로드 → 우클릭 → "링크 공유" → <b>"링크 있는 모든 사용자"로 공개</b><br>
-        ② 공유 링크에서 ID 복사: <code>drive.google.com/file/d/<b>여기가ID</b>/view</code><br>
-        ③ 아래 JS <code>posters</code> 배열에서 <code>bg</code> 대신
-        <code>src: "https://drive.google.com/thumbnail?id=여기에ID&sz=w400"</code> 추가<br>
-        → 제가 직접 교체해드릴 수 있어요! 드라이브 폴더 링크 주시면 바로 작업할게요 🧡
-      </span>
+    <div class="ig-note reveal">
+      💡 <span><b>구글 드라이브로 포스터 연결하기:</b> 드라이브에 이미지 업로드 → 공유 → "링크 있는 모든 사용자" 공개 → 파일 ID 복사 →
+      <code style="background:rgba(0,0,0,.06);padding:1px 6px;border-radius:4px;font-size:12px;">https://drive.google.com/thumbnail?id=파일ID&sz=w400</code>
+      드라이브 폴더 링크 주시면 바로 교체해드릴게요 🧡
+      &nbsp;<a href="https://www.instagram.com/iki.minutes" target="_blank">@iki.minutes →</a></span>
     </div>
 
     <div class="masonry reveal" id="galleryGrid"></div>
-
     <div class="g-foot reveal">
-      <a href="https://www.instagram.com/iki.minutes/" target="_blank" class="btn-fill">
+      <a href="https://www.instagram.com/iki.minutes" target="_blank" class="btn-dark">
         📸 인스타그램에서 전체 보기 →
       </a>
     </div>
@@ -921,60 +800,54 @@ footer {
 </section>
 
 <!-- ══ LINKS ══ -->
-<section class="links-sec" id="links">
+<section class="links" id="links">
   <div class="wrap">
-    <p class="eyebrow">community & store</p>
-    <h2 class="s-title">이키를 <b>더 가까이</b> 만나는 곳</h2>
-    <p class="s-desc">커뮤니티에서 같이 10분 하거나, 스토어에서 루틴을 시작해봐요.</p>
+    <p class="s-label">community & store</p>
+    <h2 class="s-h2">이키를 <em>더 가까이</em></h2>
+    <p class="s-p">커뮤니티에서 같이 10분 하거나, 스토어에서 루틴을 시작해봐요.</p>
 
     <div class="links-grid reveal">
 
-      <!-- 1. 일기록록방 -->
-      <a href="https://open.kakao.com/o/goOmhYXh" target="_blank" class="lk-card">
+      <a href="https://open.kakao.com/o/goOmhYXh" target="_blank" class="lk">
         <span class="lk-badge kakao">💬 카카오 오픈채팅</span>
         <p class="lk-name">일기록록방</p>
-        <p class="lk-desc">매일 기록을 나누는 오픈채팅방이에요. 같이 10분 하고 인증해요 🧡</p>
-        <span class="lk-arrow">입장하기 →</span>
+        <p class="lk-desc">매일 기록을 나누는 오픈채팅방. 같이 10분 하고 인증해요 🧡</p>
+        <span class="lk-arr">입장하기 →</span>
       </a>
 
-      <!-- 2. 공지방 -->
-      <a href="https://open.kakao.com/o/gLXTTj7h" target="_blank" class="lk-card">
+      <a href="https://open.kakao.com/o/gLXTTj7h" target="_blank" class="lk">
         <span class="lk-badge kakao">📢 카카오 오픈채팅</span>
         <p class="lk-name">이키 공지방</p>
-        <p class="lk-desc">챌린지 오픈, 전자책 업데이트 등 이키의 새 소식을 가장 먼저 받아봐요.</p>
-        <span class="lk-arrow">구독하기 →</span>
+        <p class="lk-desc">챌린지 오픈, 전자책 업데이트 등 새 소식을 가장 먼저 받아봐요.</p>
+        <span class="lk-arr">구독하기 →</span>
       </a>
 
-      <!-- 3. 디스코드 -->
-      <a href="https://discord.com/invite/g2ckZjPFnu" target="_blank" class="lk-card">
-        <span class="lk-badge discord">🎮 Discord</span>
+      <a href="https://discord.com/invite/g2ckZjPFnu" target="_blank" class="lk">
+        <span class="lk-badge disc">🎮 Discord</span>
         <p class="lk-name">이키의 작업실</p>
-        <p class="lk-desc">디스코드 작업실이에요. 90명+이 같은 시간, 각자의 10분을 보내고 있어요.</p>
-        <span class="lk-arrow">입장하기 →</span>
+        <p class="lk-desc">90명+이 같은 시간, 각자의 10분을 보내고 있어요.</p>
+        <span class="lk-arr">입장하기 →</span>
       </a>
 
-      <!-- 4. 전자책 -->
-      <a href="https://smartstore.naver.com/iki-minutes/products/11630951571" target="_blank" class="lk-card">
-        <span class="lk-badge store">📘 전자책</span>
+      <a href="https://smartstore.naver.com/iki-minutes/products/11630951571" target="_blank" class="lk">
+        <span class="lk-badge store">📘 첫 전자책</span>
         <p class="lk-name">이키의 디자인<br>습관 만들기</p>
-        <p class="lk-desc">하루 10분으로 디자인 습관을 만드는 법.<br>전자책 + 30일 노션 루틴북 포함. 후기 20개+</p>
-        <span class="lk-arrow">구매하기 →</span>
+        <p class="lk-desc">전자책 + 30일 노션 루틴북 포함. 후기 20개+</p>
+        <span class="lk-arr">구매하기 →</span>
       </a>
 
-      <!-- 5. 이키 스토어 -->
-      <a href="https://smartstore.naver.com/iki-minutes" target="_blank" class="lk-card">
+      <a href="https://smartstore.naver.com/iki-minutes" target="_blank" class="lk">
         <span class="lk-badge store">🛍️ 이키 스토어</span>
-        <p class="lk-name">이키 스마트스토어</p>
+        <p class="lk-name">챌린지 · 전자책<br>스마트스토어</p>
         <p class="lk-desc">챌린지 신청 & 전자책 구매는 여기서! 후기 9개+</p>
-        <span class="lk-arrow">방문하기 →</span>
+        <span class="lk-arr">방문하기 →</span>
       </a>
 
-      <!-- 6. 무료 자료 -->
-      <a href="https://www.latpeed.com/stores/BcL7n" target="_blank" class="lk-card">
-        <span class="lk-badge store">🎁 무료 자료</span>
+      <a href="https://www.latpeed.com/stores/BcL7n" target="_blank" class="lk">
+        <span class="lk-badge free">🎁 무료 자료</span>
         <p class="lk-name">iki design studio<br>무료 자료 모음</p>
         <p class="lk-desc">이키가 직접 만든 디자인 무료 자료를 받아가세요.</p>
-        <span class="lk-arrow">다운받기 →</span>
+        <span class="lk-arr">다운받기 →</span>
       </a>
 
     </div>
@@ -982,40 +855,28 @@ footer {
 </section>
 
 <!-- ══ SNS ══ -->
-<section class="sns-sec" id="sns">
-  <div class="wrap">
-    <p class="eyebrow">find iki</p>
-    <h2 class="s-title">이키가 있는 <b>모든 곳</b></h2>
+<section class="sns" id="sns">
+  <div class="wrap-sm">
+    <p class="s-label">find iki</p>
+    <h2 class="s-h2">이키가 있는 <em>모든 곳</em></h2>
     <div class="sns-row reveal">
       <a href="https://www.instagram.com/iki.minutes" target="_blank" class="sns-chip">
-        <span class="sns-chip-icon">📸</span>
-        인스타그램
-        <span class="sns-chip-sub">@iki.minutes · 1.1만</span>
+        📸 인스타그램 <span class="sns-chip-sub">1.1만</span>
       </a>
       <a href="https://www.youtube.com/@iki.minutes" target="_blank" class="sns-chip">
-        <span class="sns-chip-icon">▶️</span>
-        유튜브
-        <span class="sns-chip-sub">10분 디자인 튜토리얼</span>
+        ▶️ 유튜브
       </a>
       <a href="https://blog.naver.com/iki-minutes" target="_blank" class="sns-chip">
-        <span class="sns-chip-icon">📝</span>
-        블로그
-        <span class="sns-chip-sub">디자인 팁 · 기록</span>
+        📝 블로그
       </a>
       <a href="https://grafolio.ogq.me/profile/iki/project" target="_blank" class="sns-chip">
-        <span class="sns-chip-icon">🎨</span>
-        그라폴리오
-        <span class="sns-chip-sub">포스터 포트폴리오</span>
+        🎨 그라폴리오
       </a>
       <a href="https://brunch.co.kr/@iki-minutes" target="_blank" class="sns-chip">
-        <span class="sns-chip-icon">☕</span>
-        브런치
-        <span class="sns-chip-sub">이키의 글 기록</span>
+        ☕ 브런치
       </a>
       <a href="mailto:iki.minutes@gmail.com" class="sns-chip">
-        <span class="sns-chip-icon">✉️</span>
-        이메일
-        <span class="sns-chip-sub">iki.minutes@gmail.com</span>
+        ✉️ 이메일
       </a>
     </div>
   </div>
@@ -1023,94 +884,75 @@ footer {
 
 <!-- ══ FOOTER ══ -->
 <footer>
-  <div class="foot-logo">
-    <img class="foot-char" src="./RFQ6KDU.png" alt="이키"
-         onerror="this.style.display='none'">
-    <span class="foot-logo-txt">iki.minutes</span>
+  <div class="foot-inner">
+    <a href="#top" class="foot-logo">
+      <img src="./RFQ6KDU.png" alt="이키"
+        onerror="this.style.display='none'">
+      <span class="foot-logo-txt">iki<span>.</span>minutes</span>
+    </a>
+    <div class="foot-links">
+      <a href="https://www.instagram.com/iki.minutes" target="_blank">인스타그램</a>
+      <a href="https://smartstore.naver.com/iki-minutes" target="_blank">스토어</a>
+      <a href="https://discord.com/invite/g2ckZjPFnu" target="_blank">디스코드</a>
+      <a href="mailto:iki.minutes@gmail.com">문의</a>
+    </div>
+    <span class="foot-copy">© 2026 iki.minutes</span>
   </div>
-  <p class="foot-tag">하루 10분으로 디자인 습관 만드는 법 · 비전공자 → 포스터 200개 제작 중</p>
-  <div class="foot-sns">
-    <a href="https://www.instagram.com/iki.minutes" target="_blank" title="인스타그램">📸</a>
-    <a href="https://www.youtube.com/@iki.minutes" target="_blank" title="유튜브">▶️</a>
-    <a href="https://blog.naver.com/iki-minutes" target="_blank" title="블로그">📝</a>
-    <a href="https://open.kakao.com/o/goOmhYXh" target="_blank" title="카카오 오픈채팅">💬</a>
-  </div>
-  <p class="foot-copy">© 2026 iki.minutes. All rights reserved.</p>
 </footer>
 
 <script>
-/* ── 갤러리 포스터 데이터 ── */
-const posters = [
-  {bg:'linear-gradient(135deg,#FFB347,#FF6B35)',h:140,t:'과일',cat:'일러스트'},
-  {bg:'linear-gradient(135deg,#FF8042,#FFC857)',h:110,t:'타이포',cat:'타이포'},
-  {bg:'linear-gradient(135deg,#F7931E,#FF4E50)',h:158,t:'레트로',cat:'감성'},
-  {bg:'linear-gradient(135deg,#4ECDC4,#44A08D)',h:118,t:'미니멀',cat:'일러스트'},
-  {bg:'linear-gradient(135deg,#FFD166,#EF476F)',h:143,t:'잡지 스타일',cat:'포토샵'},
-  {bg:'linear-gradient(135deg,#2E1A0E,#8B4513)',h:130,t:'무드',cat:'감성'},
-  {bg:'linear-gradient(135deg,#667EEA,#764BA2)',h:115,t:'기하학',cat:'일러스트'},
-  {bg:'linear-gradient(135deg,#FF6B6B,#FFA07A)',h:150,t:'딸기케이크',cat:'푸드'},
-  {bg:'linear-gradient(135deg,#43E97B,#38F9D7)',h:128,t:'자연',cat:'일러스트'},
-  {bg:'linear-gradient(135deg,#FA709A,#FEE140)',h:112,t:'발렌타인',cat:'감성'},
-  {bg:'linear-gradient(135deg,#4facfe,#00f2fe)',h:162,t:'시원한 여름',cat:'포토샵'},
-  {bg:'linear-gradient(135deg,#f093fb,#f5576c)',h:135,t:'핑크 무드',cat:'감성'},
-  {bg:'linear-gradient(135deg,#ffecd2,#fcb69f)',h:108,t:'따뜻한 톤',cat:'일러스트'},
-  {bg:'linear-gradient(135deg,#a18cd1,#fbc2eb)',h:152,t:'라벤더',cat:'감성'},
-  {bg:'linear-gradient(135deg,#fd7043,#ff8a65)',h:124,t:'오렌지',cat:'타이포'},
-  {bg:'linear-gradient(135deg,#26c6da,#00acc1)',h:140,t:'블루',cat:'포토샵'},
-  {bg:'linear-gradient(135deg,#66bb6a,#43a047)',h:118,t:'식물',cat:'일러스트'},
-  {bg:'linear-gradient(135deg,#ef5350,#e53935)',h:155,t:'체리',cat:'푸드'},
-  {bg:'linear-gradient(135deg,#ffa726,#fb8c00)',h:128,t:'노을',cat:'감성'},
-  {bg:'linear-gradient(135deg,#7e57c2,#5e35b1)',h:108,t:'딥 퍼플',cat:'타이포'},
-  {bg:'linear-gradient(135deg,#80deea,#26c6da)',h:142,t:'아쿠아',cat:'포토샵'},
-  {bg:'linear-gradient(135deg,#ce93d8,#ab47bc)',h:132,t:'보라',cat:'감성'},
-  {bg:'linear-gradient(135deg,#fff176,#fdd835)',h:118,t:'레몬',cat:'푸드'},
-  {bg:'linear-gradient(135deg,#a5d6a7,#66bb6a)',h:148,t:'세이지',cat:'일러스트'},
-  {bg:'linear-gradient(135deg,#ffcc02,#ff6600)',h:110,t:'선셋',cat:'감성'},
-  {bg:'linear-gradient(135deg,#8d6e63,#6d4c41)',h:156,t:'브라운',cat:'타이포'},
-  {bg:'linear-gradient(135deg,#ec407a,#d81b60)',h:124,t:'딸기',cat:'푸드'},
-  {bg:'linear-gradient(135deg,#26a69a,#00897b)',h:138,t:'민트',cat:'포토샵'},
-  {bg:'linear-gradient(135deg,#ff7043,#e64a19)',h:115,t:'버밀리언',cat:'타이포'},
-  {bg:'linear-gradient(135deg,#A8EDEA,#FED6E3)',h:148,t:'파스텔',cat:'감성'},
+/* 갤러리 데이터 */
+const P = [
+  {bg:'linear-gradient(135deg,#FFB347,#FF6B35)',h:140,t:'과일',c:'일러스트'},
+  {bg:'linear-gradient(135deg,#FF8042,#FFC857)',h:108,t:'타이포',c:'타이포'},
+  {bg:'linear-gradient(135deg,#F7931E,#FF4E50)',h:155,t:'레트로',c:'감성'},
+  {bg:'linear-gradient(135deg,#4ECDC4,#44A08D)',h:116,t:'미니멀',c:'일러스트'},
+  {bg:'linear-gradient(135deg,#FFD166,#EF476F)',h:140,t:'잡지',c:'포토샵'},
+  {bg:'linear-gradient(135deg,#2d1b00,#8B4513)',h:128,t:'무드',c:'감성'},
+  {bg:'linear-gradient(135deg,#667EEA,#764BA2)',h:112,t:'기하학',c:'일러스트'},
+  {bg:'linear-gradient(135deg,#FF6B6B,#FFA07A)',h:148,t:'딸기케이크',c:'푸드'},
+  {bg:'linear-gradient(135deg,#43E97B,#38F9D7)',h:124,t:'자연',c:'일러스트'},
+  {bg:'linear-gradient(135deg,#FA709A,#FEE140)',h:110,t:'발렌타인',c:'감성'},
+  {bg:'linear-gradient(135deg,#4facfe,#00f2fe)',h:160,t:'여름',c:'포토샵'},
+  {bg:'linear-gradient(135deg,#f093fb,#f5576c)',h:132,t:'핑크무드',c:'감성'},
+  {bg:'linear-gradient(135deg,#ffecd2,#fcb69f)',h:105,t:'따뜻한톤',c:'일러스트'},
+  {bg:'linear-gradient(135deg,#a18cd1,#fbc2eb)',h:150,t:'라벤더',c:'감성'},
+  {bg:'linear-gradient(135deg,#fd7043,#ff8a65)',h:122,t:'오렌지',c:'타이포'},
+  {bg:'linear-gradient(135deg,#26c6da,#00acc1)',h:138,t:'블루',c:'포토샵'},
+  {bg:'linear-gradient(135deg,#66bb6a,#43a047)',h:115,t:'식물',c:'일러스트'},
+  {bg:'linear-gradient(135deg,#ef5350,#e53935)',h:152,t:'체리',c:'푸드'},
+  {bg:'linear-gradient(135deg,#ffa726,#fb8c00)',h:126,t:'노을',c:'감성'},
+  {bg:'linear-gradient(135deg,#7e57c2,#5e35b1)',h:106,t:'딥퍼플',c:'타이포'},
+  {bg:'linear-gradient(135deg,#80deea,#26c6da)',h:140,t:'아쿠아',c:'포토샵'},
+  {bg:'linear-gradient(135deg,#ce93d8,#ab47bc)',h:130,t:'보라',c:'감성'},
+  {bg:'linear-gradient(135deg,#fff176,#fdd835)',h:115,t:'레몬',c:'푸드'},
+  {bg:'linear-gradient(135deg,#a5d6a7,#66bb6a)',h:145,t:'세이지',c:'일러스트'},
+  {bg:'linear-gradient(135deg,#ffcc02,#ff6600)',h:108,t:'선셋',c:'감성'},
+  {bg:'linear-gradient(135deg,#8d6e63,#6d4c41)',h:154,t:'브라운',c:'타이포'},
+  {bg:'linear-gradient(135deg,#ec407a,#d81b60)',h:122,t:'딸기',c:'푸드'},
+  {bg:'linear-gradient(135deg,#26a69a,#00897b)',h:136,t:'민트',c:'포토샵'},
+  {bg:'linear-gradient(135deg,#ff7043,#e64a19)',h:112,t:'버밀리언',c:'타이포'},
+  {bg:'linear-gradient(135deg,#A8EDEA,#FED6E3)',h:146,t:'파스텔',c:'감성'},
 ];
 
-/* ── 히어로 미니 그리드 ── */
-const heroGrid = document.getElementById('heroGrid');
-posters.slice(0,8).forEach(p => {
-  const d = document.createElement('div');
-  d.className = 'hm-cell';
-  d.style.background = p.bg;
-  heroGrid.appendChild(d);
-});
+const grid = document.getElementById('galleryGrid');
 
-/* ── 갤러리 렌더 ── */
-const galleryGrid = document.getElementById('galleryGrid');
-let currentFilter = 'all';
-
-function renderGallery(filter) {
-  galleryGrid.innerHTML = '';
-  const filtered = filter === 'all' ? posters : posters.filter(p => p.cat === filter);
-  filtered.forEach(p => {
-    const el = document.createElement('div');
-    el.className = 'm-item';
-    el.dataset.cat = p.cat;
-    el.innerHTML = `<div class="m-card" style="background:${p.bg};height:${p.h}px;">
-      <span class="m-tag">${p.t}</span>
-    </div>`;
-    galleryGrid.appendChild(el);
-  });
-}
-renderGallery('all');
-
-function filterPosters(btn, cat) {
+function filterPoster(btn, cat) {
   document.querySelectorAll('.flt').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
-  currentFilter = cat;
-  renderGallery(cat);
+  grid.innerHTML = '';
+  (cat === 'all' ? P : P.filter(p => p.c === cat)).forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'm-item';
+    el.innerHTML = `<div class="m-card" style="background:${p.bg};height:${p.h}px"><span class="m-tag">${p.t}</span></div>`;
+    grid.appendChild(el);
+  });
 }
+filterPoster(document.querySelector('.flt.on'), 'all');
 
-/* ── 스크롤 reveal ── */
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
+/* reveal */
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>

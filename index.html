@@ -1058,44 +1058,7 @@ footer {
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ─────────────────────────────────────────
-   포스터 목록 — 파일명 / 태그 / 카테고리 수정
-   경로: public/images/posters/<img>
-   카테고리: 일러스트 / 포토샵 / 타이포 / 푸드 / 감성
-───────────────────────────────────────── */
-const POSTERS = [
-  {img:'poster01.jpg', t:'과일',     c:'일러스트'},
-  {img:'poster02.jpg', t:'타이포',   c:'타이포'},
-  {img:'poster03.jpg', t:'레트로',   c:'감성'},
-  {img:'poster04.jpg', t:'미니멀',   c:'일러스트'},
-  {img:'poster05.jpg', t:'잡지',     c:'포토샵'},
-  {img:'poster06.jpg', t:'무드',     c:'감성'},
-  {img:'poster07.jpg', t:'기하학',   c:'일러스트'},
-  {img:'poster08.jpg', t:'딸기케이크',c:'푸드'},
-  {img:'poster09.jpg', t:'자연',     c:'일러스트'},
-  {img:'poster10.jpg', t:'발렌타인', c:'감성'},
-  {img:'poster11.jpg', t:'여름',     c:'포토샵'},
-  {img:'poster12.jpg', t:'핑크무드', c:'감성'},
-  {img:'poster13.jpg', t:'따뜻한톤', c:'일러스트'},
-  {img:'poster14.jpg', t:'라벤더',   c:'감성'},
-  {img:'poster15.jpg', t:'오렌지',   c:'타이포'},
-  {img:'poster16.jpg', t:'블루',     c:'포토샵'},
-  {img:'poster17.jpg', t:'식물',     c:'일러스트'},
-  {img:'poster18.jpg', t:'체리',     c:'푸드'},
-  {img:'poster19.jpg', t:'노을',     c:'감성'},
-  {img:'poster20.jpg', t:'딥퍼플',   c:'타이포'},
-  {img:'poster21.jpg', t:'아쿠아',   c:'포토샵'},
-  {img:'poster22.jpg', t:'보라',     c:'감성'},
-  {img:'poster23.jpg', t:'레몬',     c:'푸드'},
-  {img:'poster24.jpg', t:'세이지',   c:'일러스트'},
-  {img:'poster25.jpg', t:'선셋',     c:'감성'},
-  {img:'poster26.jpg', t:'브라운',   c:'타이포'},
-  {img:'poster27.jpg', t:'딸기',     c:'푸드'},
-  {img:'poster28.jpg', t:'민트',     c:'포토샵'},
-  {img:'poster29.jpg', t:'버밀리언', c:'타이포'},
-  {img:'poster30.jpg', t:'파스텔',   c:'감성'},
-];
-
+let POSTERS = [];
 const grid = document.getElementById('galleryGrid');
 
 function filterPoster(btn, cat) {
@@ -1107,13 +1070,22 @@ function filterPoster(btn, cat) {
     el.className = 'm-item';
     el.innerHTML = `
       <div class="m-card">
-        <img src="public/images/posters/${p.img}" alt="${p.t}" loading="lazy">
-        <span class="m-tag">${p.t}</span>
+        <img src="public/images/posters/${p.img}" alt="${p.img}" loading="lazy">
+        <span class="m-tag">${p.img.replace(/\.[^.]+$/, '')}</span>
       </div>`;
     grid.appendChild(el);
   });
 }
-filterPoster(document.querySelector('.flt.on'), 'all');
+
+fetch('https://api.github.com/repos/sprout4134-dev/iki.minutes/contents/public/images/posters')
+  .then(r => r.json())
+  .then(files => {
+    POSTERS = files
+      .filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f.name))
+      .map(f => ({ img: f.name, c: 'all' }));
+    filterPoster(document.querySelector('.flt.on'), 'all');
+  })
+  .catch(() => { grid.innerHTML = '<p style="color:var(--ink-3);padding:20px">포스터를 불러올 수 없어요.</p>'; });
 
 /* reveal */
 const obs = new IntersectionObserver(es => {

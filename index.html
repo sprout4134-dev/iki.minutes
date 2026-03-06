@@ -20,7 +20,7 @@
   --o-p:   #fff5e3;
   --o-b:   #ffe2b8;
   --sub:   #70512c;
-  --ink:   #111111;
+  --ink:   #70512c;
   --ink-2: #555555;
   --ink-3: #999999;
   --line:  #EBEBEB;
@@ -933,19 +933,10 @@ footer {
         <p class="s-label">poster archive</p>
         <h2 class="s-h2">200개의 <em>10분들</em></h2>
       </div>
-      <div class="filters">
-        <button class="flt on" onclick="filterPoster(this,'all')">전체</button>
-        <button class="flt" onclick="filterPoster(this,'일러스트')">일러스트</button>
-        <button class="flt" onclick="filterPoster(this,'포토샵')">포토샵</button>
-        <button class="flt" onclick="filterPoster(this,'타이포')">타이포</button>
-        <button class="flt" onclick="filterPoster(this,'푸드')">푸드</button>
-        <button class="flt" onclick="filterPoster(this,'감성')">감성</button>
-      </div>
+
     </div>
 
-    <div class="ig-note reveal">
-      📁 <span><b>포스터 추가 방법:</b> <code style="background:rgba(0,0,0,.06);padding:1px 6px;border-radius:4px;font-size:12px;">public/images/posters/</code> 폴더에 JPG 파일을 넣고, 아래 <code style="background:rgba(0,0,0,.06);padding:1px 6px;border-radius:4px;font-size:12px;">POSTERS</code> 배열에 파일명과 태그를 추가하세요 🧡</span>
-    </div>
+
 
     <div class="masonry reveal" id="galleryGrid"></div>
     <div class="g-foot reveal">
@@ -1071,7 +1062,6 @@ function filterPoster(btn, cat) {
     el.innerHTML = `
       <div class="m-card">
         <img src="public/images/posters/${p.img}" alt="${p.img}" loading="lazy">
-        <span class="m-tag">${p.img.replace(/\.[^.]+$/, '')}</span>
       </div>`;
     grid.appendChild(el);
   });

@@ -1158,4 +1158,17 @@ function startTimer() {
     time--;
     if (time < 0) {
       clearInterval(timerInterval);
-      document.getElementById('timer').i
+      document.getElementById('timer').innerText = 'DONE!';
+    }
+  }, 1000);
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  time = 600;
+  document.getElementById('timer').innerText = '10:00';
+}
+
+</script>
+</body>
+</html>

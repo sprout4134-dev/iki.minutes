@@ -1054,14 +1054,14 @@ const grid = document.getElementById('galleryGrid');
 
 function filterPoster(btn, cat) {
   document.querySelectorAll('.flt').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
+  if (btn) btn.classList.add('on');
   grid.innerHTML = '';
   (cat === 'all' ? POSTERS : POSTERS.filter(p => p.c === cat)).forEach(p => {
     const el = document.createElement('div');
     el.className = 'm-item';
     el.innerHTML = `
       <div class="m-card">
-        <img src="public/images/posters/${p.img}" alt="${p.img}" loading="lazy">
+        <img src="${p.url}" alt="${p.img}" loading="lazy">
       </div>`;
     grid.appendChild(el);
   });
@@ -1072,8 +1072,8 @@ fetch('https://api.github.com/repos/sprout4134-dev/iki.minutes/contents/public/i
   .then(files => {
     POSTERS = files
       .filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f.name))
-      .map(f => ({ img: f.name, c: 'all' }));
-    filterPoster(document.querySelector('.flt.on'), 'all');
+      .map(f => ({ img: f.name, url: f.download_url, c: 'all' }));
+    filterPoster(null, 'all');
   })
   .catch(() => { grid.innerHTML = '<p style="color:var(--ink-3);padding:20px">포스터를 불러올 수 없어요.</p>'; });
 
